@@ -1,10 +1,13 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const schema = new Schema({
-    position_name: {
-        type: String,
-        required: true
-    }
-});
+const Position = mongoose.model(
+    "Position",
+    new mongoose.Schema({
+        position_name: {
+            type: String,
+            required: true
+        }
+    })
+);
 
-module.exports = model('Position', schema);
+module.exports = Position;

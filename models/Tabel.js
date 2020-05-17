@@ -1,18 +1,22 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const schema = new Schema({
-    entry_time: {
-        type: Date,
-        required: true
-    },
-    exit_time: {
-        type: Date,
-        required: true
-    },
-    standart_working_month_hours: {
-        type: Number,
-        required: true
-    }
-});
+const Tabel = mongoose.model(
+    "Tabel",
+    new mongoose.Schema({
+        employee:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Employee'
+        },
+        entry_time: {
+            type: Date
+        },
+        exit_time: {
+            type: Date
+        },
+        standart_working_month_hours: {
+            type: Number
+        }
+    })
+);
 
-module.exports = model('Tabel', schema);
+module.exports = Tabel;

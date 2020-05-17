@@ -11,7 +11,7 @@ app.use(todoRoutes);
 
 async function start() {
     try {
-        await mongoose.connect('mongodb+srv://user:user@clusterkursach-dnqfk.mongodb.net/test',
+        await mongoose.connect('mongodb+srv://user:user@clusterkursach-dnqfk.mongodb.net/salary',
             {
                 useNewUrlParser: true,
                 useFindAndModify: false,
