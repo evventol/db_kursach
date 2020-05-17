@@ -1,15 +1,20 @@
 const {Router} = require('express');
-const User = require('../models/Employee');
+const Employee = require('../models/Employee');
 const router = Router();
 
 router.get('/', async (req, res) => {
-    const users = await User.find({}).lean();
+    const stream = await Employee.find().stream();
 
-    res.render('index', {
-        title: 'Employee list',
-        isIndex: true,
-        users
+    stream.on('data', function(doc) {
+        console.log(doc);
     });
+    stream.on('error', function(err) {
+        console.log(err);
+    });
+    stream.on('end', function() {
+        console.log('All done!');
+    });
+
 });
 
 

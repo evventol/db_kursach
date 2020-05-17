@@ -1,8 +1,14 @@
-const mongoose = require('mongoose');
+/*const mongoose = require('mongoose');
 
 const Employee = mongoose.model(
     "Employee",
-    new mongoose.Schema({
+    new mongoose.Schema({*/
+
+
+const ObjectId = require("mongoose").ObjectId;
+const { Schema, model } = require('mongoose');
+
+const schema = new Schema({
         fio: {
             type: String,
             required: true
@@ -12,14 +18,14 @@ const Employee = mongoose.model(
             required: true
         },
         position: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: ObjectId,
             ref: 'Position'
         },
         salary_per_hour: {
             type: Number,
             required: true
         }
-    })
-);
+    });
+// );
 
-module.exports = Employee;
+module.exports = model('Employee', schema);
