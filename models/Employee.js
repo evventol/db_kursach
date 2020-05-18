@@ -21,6 +21,10 @@ const schema = mongoose.Schema({
         salary_per_hour: {
             type: Number,
             required: true
+        },
+        birthDay:{
+            type: Date,
+            require:true
         }
     });
 
