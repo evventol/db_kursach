@@ -1,0 +1,65 @@
+body{
+    background-image: url(../images/back.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Myriad CAD';
+}
+
+@media screen and (min-width: 768px){
+    .main{
+        height: 600px;
+    }
+
+}
+.mcont{
+    background-color: rgba(21, 22, 21, 0.102);
+}
+
+.pad{
+    padding: 50px 50px;
+}
+.pad .row:nth-child(1) form input{
+    width: 50%;
+    display: inline;
+}
+.header{
+    background-color: rgba(6, 39, 16, 0.561);
+    padding: 30px 50px;
+}
+.header a{
+    color: rgb(203, 233, 218);
+}
+.header a:hover{
+    color: rgb(27, 78, 53);
+}
+
+
+.main{
+    max-width: 900px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+.main p{
+    color: rgb(106, 200, 109);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.main p:nth-child(1){
+    margin: 60px auto;
+    font-size: 42px;
+}
+.main p:nth-child(2){
+    font-size: 24px;   
+}
+
+.main img{
+    width: 90%;
+    margin-bottom: 40px;
+}
