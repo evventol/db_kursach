@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
-const Tabel = mongoose.model(
-    "Tabel",
-    new mongoose.Schema({
+const schema = mongoose.Schema({
+        _id: mongoose.Schema.Types.ObjectId,
         employee:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Employee'
@@ -16,7 +15,7 @@ const Tabel = mongoose.model(
         standart_working_month_hours: {
             type: Number
         }
-    })
-);
+    });
 
+const Tabel = mongoose.model('Tabel', schema);
 module.exports = Tabel;
