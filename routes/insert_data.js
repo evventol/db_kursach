@@ -20,6 +20,7 @@ insert_data.get('/insert', (req, res) => {
         var employee = new Employee({
             _id: new mongoose.Types.ObjectId(),
             fio: 'Sergio Monte',
+            id_card: 12345678901,
             address: 'LA',
             position: pos._id,
             salary_per_hour: 0

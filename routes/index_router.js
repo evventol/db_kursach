@@ -7,4 +7,8 @@ index_router.get('/', (req, res) => {
     })
 });
 
+
+
+
+
 module.exports = index_router;

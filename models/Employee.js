@@ -6,6 +6,10 @@ const schema = mongoose.Schema({
             type: String,
             required: true
         },
+        id_card:{
+            type: Number,
+            required: true
+        },
         address: {
             type: String,
             required: true
