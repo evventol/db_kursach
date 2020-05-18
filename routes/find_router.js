@@ -18,11 +18,5 @@ find_router.get('/getall', (req, res) => {
 });
 
 
-find_router.get('/workers', (req, res) => {
-    res.render('workers',{
-        title: 'Workers'
-    })
-});
-
 
 module.exports = find_router;

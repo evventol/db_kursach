@@ -7,7 +7,11 @@ index_router.get('/', (req, res) => {
     })
 });
 
-
+index_router.get('/workers', (req, res) => {
+    res.render('workers',{
+        title: 'Workers'
+    })
+});
 
 
 
