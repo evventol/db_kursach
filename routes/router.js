@@ -3,13 +3,14 @@ const mongoose = require('mongoose');
 
 const Employee = require('../models/Employee');
 const Position = require('../models/Position');
+const Calculate = require('../models/Calculate_salary');
 const router = Router();
 
 router.get('/insert', (req, res) => {
 
     var pos = new Position({
         _id: new mongoose.Types.ObjectId(),
-        position_name: 'director'
+        position_name: 'security'
     });
 
     pos.save(function (err) {
@@ -18,8 +19,8 @@ router.get('/insert', (req, res) => {
 
         var employee = new Employee({
             _id: new mongoose.Types.ObjectId(),
-            fio: 'Jamie',
-            address: 'somewhere',
+            fio: 'Jamie Jamie',
+            address: 'somewhere somewhere',
             position: pos._id,
             salary_per_hour: 0
         });
@@ -27,6 +28,22 @@ router.get('/insert', (req, res) => {
         employee.save(function (err) {
             if (err) throw err;
             console.log('employee successfully saved.');
+
+            var calc = new Calculate({
+                _id: new mongoose.Types.ObjectId(),
+                employee: employee._id,
+                work_time: 0,
+                max_work_time: 0,
+                salary: 0,
+                premium: 0,
+                total_Income_Tax: 0,
+                salary_with_tax: 0
+            });
+
+            calc.save(function(err) {
+                if (err) throw err;
+                console.log('Calc successfully saved.');
+            });
         });
 
     });

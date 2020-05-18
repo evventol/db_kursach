@@ -7,11 +7,11 @@ const schema = mongoose.Schema({
         ref: 'Employee'
     },
     work_time: {
-        type: Date,
+        type: Number,
         required: true
     },
     max_work_time: {
-        type: Date,
+        type: Number,
         required: true
     },
     salary: {
@@ -22,7 +22,7 @@ const schema = mongoose.Schema({
         type: Number,
         required: false
     },
-    Total_Income_Tax: {
+    total_Income_Tax: {
         type: Number,
         required: true
     },
