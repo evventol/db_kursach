@@ -1,16 +1,16 @@
-const {Router} = require('express');
 const mongoose = require('mongoose');
+const insert_data = require('express').Router();
 
 const Employee = require('../models/Employee');
 const Position = require('../models/Position');
 const Calculate = require('../models/Calculate_salary');
-const router = Router();
+const Tabel = require('../models/Tabel');
 
-router.get('/insert', (req, res) => {
+insert_data.get('/insert', (req, res) => {
 
     var pos = new Position({
         _id: new mongoose.Types.ObjectId(),
-        position_name: 'security'
+        position_name: 'zam director'
     });
 
     pos.save(function (err) {
@@ -19,8 +19,8 @@ router.get('/insert', (req, res) => {
 
         var employee = new Employee({
             _id: new mongoose.Types.ObjectId(),
-            fio: 'Jamie Jamie',
-            address: 'somewhere somewhere',
+            fio: 'Sergio Monte',
+            address: 'LA',
             position: pos._id,
             salary_per_hour: 0
         });
@@ -44,26 +44,22 @@ router.get('/insert', (req, res) => {
                 if (err) throw err;
                 console.log('Calc successfully saved.');
             });
+
+            var tabel = new Tabel({
+                _id: new mongoose.Types.ObjectId(),
+                employee:employee._id,
+                entry_time: new Date("2020-05-21T10:00:00Z"),
+                exit_time: new Date("2020-05-21T20:00:00Z"),
+                standart_working_month_hours:0
+            });
+
+            tabel.save(function(err) {
+                if (err) throw err;
+                console.log('Tabel successfully saved.');
+            });
         });
 
     });
-
-
 });
 
-router.get('/getall', async (req, res) => {
-    const stream = await Employee.find().stream();
-
-    stream.on('data', function (doc) {
-        console.log(doc);
-    });
-    stream.on('error', function (err) {
-        console.log(err);
-    });
-    stream.on('end', function () {
-        console.log('All done!');
-    });
-});
-
-
-module.exports = router;
+module.exports = insert_data;
