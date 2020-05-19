@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const insert_data = require('express').Router();
+const fs = require('fs');
 
 const Employee = require('../models/Employee');
 const Position = require('../models/Position');
@@ -64,10 +65,53 @@ insert_data.get('/insert', (req, res) => {
 });
 
 
+function findLineWithId(line, idWorker) {
+    for (let it in line) {
+        if(line[it]){
+            console.log(line[it])
+        }
+    }
+}
+
+var index_out= 0;
+function readTabelFile(idWorker) {
+    const array = fs.readFileSync('tabel_in.txt').toString().split("\n");
+
+    for (let i in array) {
+
+        if(array[i].includes(idWorker)){
+            let inn = array[i];
+            let out = readTabelOutFile(idWorker);
+            console.log('in ',inn);
+            console.log('out ',out);
+
+        }
+
+
+        // var words = array[i].trim().split(/\s+/);  //TODO divide by space
+        // console.log('words ', words);
+
+    }
+}
+
+function readTabelOutFile(idWorker) {
+    const array = fs.readFileSync('tabel_out.txt').toString().split("\n");
+    let tmp = index_out;
+
+    for(let i=tmp+1; i<array.length; i++){
+
+        if(array[i].includes(idWorker)){
+
+            index_out=i;
+            console.log('find out at position = ', i);
+            return array[i];
+        }
+    }
+}
 
 insert_data.post('/addemployee', async (req, res)=>{
-
-    const newEmployee= new Employee({
+//TODO delete comment
+/*    const newEmployee= new Employee({
         _id: new mongoose.Types.ObjectId(),
         fio: req.body.fio,
         id_card: req.body.id_card,
@@ -75,9 +119,11 @@ insert_data.post('/addemployee', async (req, res)=>{
         position: req.body.position_id,
         birthDay: req.body.birthDay,
         salary_per_hour: req.body.salary_per_hour
-    });
+    });*/
 
-    await newEmployee.save();
+    readTabelFile(req.body.id_card);
+
+ //TODO   // await newEmployee.save();
     res.redirect('/workers');
 });
 

@@ -34,7 +34,7 @@ find_router.get('/workers', (req, res) => {
 
 function extractedPosition(doc) {
     const tmp = Position.findById(doc.position,  (error, smth) =>{
-        console.log(smth.position_name);
+        // console.log(smth.position_name);
         return smth.position_name;
     });
 
@@ -51,7 +51,7 @@ function extractedEmployee(sort, res) {
         if (emps.length < maxLength) {   //TODO
 
             var sss = extractedPosition(doc);
-            console.log("sss = ", sss);
+            // console.log("sss = ", sss);
 
             const employ = new Employee({
                 fio:doc.fio,
@@ -77,7 +77,7 @@ function extractedEmployee(sort, res) {
 
     stream.on('end', function () {
         console.log('All done!');
-        console.log(hernia);
+        // console.log(hernia);
 
 
         res.render('workers', {
