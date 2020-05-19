@@ -33,26 +33,30 @@ find_router.get('/workers', (req, res) => {
 
 
 function extractedPosition(doc) {
+    const stream = Position.findById(doc.position).sort(sort).stream();
+    stream.on('data', function (doc) {
+
+    })
     const tmp = Position.findById(doc.position,  (error, smth) =>{
-        // console.log(smth.position_name);
+        //console.log(smth.position_name);
         return smth.position_name;
     });
-
+    
 }
 
 function extractedEmployee(sort, res) {
     const stream = Employee.find().sort(sort).stream();
+    const stream2 = Position.find().sort(sort).stream();
     const emps = [];
     const hernia = [];
     const maxLength = 20;
-
+    var sss= "horosho";
     stream.on('data', function (doc) {
-
+        
         if (emps.length < maxLength) {   //TODO
-
-            var sss = extractedPosition(doc);
-            // console.log("sss = ", sss);
-
+            sss = Position.findById(doc.position);
+            console.log("sss = ", sss);
+            var pop;
             const employ = new Employee({
                 fio:doc.fio,
                 id_card:doc.id_card,
@@ -65,9 +69,15 @@ function extractedEmployee(sort, res) {
 
 
             hernia.push(employ);
-
-
+            stream2.on('data', function (doc1) {
+                if(doc.position==doc1._id){
+                    pop=doc1.position_name;
+                }
+               
+            })
             emps.push(doc);
+            emps.push(sss);
+            //console.log(emps)
         }
 
     });
