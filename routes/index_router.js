@@ -10,18 +10,57 @@ index_router.get('/', async (req, res) => {
     })
 });
 index_router.get('/removeEmp/:id', async (req, res) => {
-    const id = req.params._id;
+    const id = req.params.id;
     Employee.findByIdAndRemove(id, err => {
         if (err) return res.send(500, err);
         res.redirect("/workers");
     });
 });
+function extractedPosition(doc) {
+    const tmp = Position.findById(doc.position,  (error, smth) =>{
+        // console.log(smth.position_name);
+        return smth.position_name;
+    });
 
-index_router.get('/editEmp:id', async (req, res) => {
-    res.render('editEmp', {
-        title: 'Edit Employee'
-    })
+}
+index_router.get('/editEmp/:id', async (req, res) => {
+    const id = req.params.id;
+    const sort = {position_name: 1};
+    const positions = [];
+    const maxLength = 20;
+    const stream = Position.find().sort(sort).stream();
+
+    stream.on('data', function (doc) {
+        if (positions.length < maxLength) {
+            positions.push(doc);
+        }
+
+    });
+
+    stream.on('end', function () {
+        res.render('editEmp', {
+            title: 'Edit Employee',
+            id:id,
+            positions: positions
+        })
+    });
 });
+
+index_router.post('/editemployee/:id', async (req, res) => {
+    const id = req.params.id;
+    Employee.findByIdAndUpdate(id, {
+        fio: req.body.fio,
+        address: req.body.address,
+        position: req.body.position_id,
+        birthDay: req.body.birthDay,
+        salary_per_hour: req.body.salary_per_hour
+    }, err => {
+        if (err) return res.send(500, err);
+        res.redirect("/workers");
+    })
+
+});
+
 index_router.get('/addEmp', async (req, res) => {
     const sort = {position_name: 1};
     const positions = [];
@@ -42,16 +81,21 @@ index_router.get('/addEmp', async (req, res) => {
             positions: positions
         })
     });
-
-
 });
-
+index_router.get('/removeEmp/:id', async (req, res) => {
+    const id = req.params.id;
+    Employee.findByIdAndRemove(id, err => {
+        if (err) return res.send(500, err);
+        res.redirect("/workers");
+    });
+});
 
 index_router.get('/addPos', async (req, res) => {
     res.render('addPos', {
         title: 'Add Position'
     })
 });
+
 index_router.get('/editPos/:id', async (req, res) => {
     const id = req.params.id;
     res.render('editPos', {
@@ -59,6 +103,7 @@ index_router.get('/editPos/:id', async (req, res) => {
         idPos:id
     })
 });
+
 index_router.post('/editposition/:id', async (req, res) => {
     const id = req.params.id;
     Position.findByIdAndUpdate(id, {
@@ -67,8 +112,8 @@ index_router.post('/editposition/:id', async (req, res) => {
         if (err) return res.send(500, err);
         res.redirect("/positions");
     })
-
 });
+
 index_router.get('/removePos/:id', async (req, res) => {
     const id = req.params.id;
     Position.findByIdAndRemove(id, err => {

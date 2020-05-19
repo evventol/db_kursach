@@ -1,0 +1,13 @@
+<form action="/editemployee/{{id}}" method="POST" class="todo-header"><br>
+    <input type="hidden" name="id" value="{{id}}"><br>
+    <input type="text" name="fio" placeholder="Ivanov I. I."><br>
+    <input type="text" name="address" placeholder="Some str. 44"><br>
+    <input type="text" name="salary_per_hour" placeholder=" salary"><br>
+    <select name="position_id">
+                    {{#each positions}}
+                    <option value="{{_id}}">{{position_name}}</option>
+                    {{/each}}
+                </select><br>
+    <input type="date" name="birthDay" ><br>
+    <button type="submit"><span class="fas fa-plus">Change</span></button>
+</form>
