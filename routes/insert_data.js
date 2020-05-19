@@ -63,4 +63,10 @@ insert_data.get('/insert', (req, res) => {
     });
 });
 
+
+
+insert_data.post('/addemployee', (req, res)=>{
+
+});
+
 module.exports = insert_data;
