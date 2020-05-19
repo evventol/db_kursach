@@ -66,6 +66,7 @@ insert_data.get('/insert', (req, res) => {
 
 
 insert_data.post('/addemployee', async (req, res)=>{
+
     const newEmployee= new Employee({
         _id: new mongoose.Types.ObjectId(),
         fio: req.body.fio,
