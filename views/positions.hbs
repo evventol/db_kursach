@@ -1,15 +1,20 @@
 <h2>list of positions</h2>
 <ul class="todo-list">
-               {{#each positions}} 
-                <li class="todo-list-item">
-                    <div class="todo-list-item-name">{{position_name}}
-                    <a href="/edit/<%= details._id %>" class="edit">
-                        <span class="fas fa-edit">edit</span>
-                    </a>
-                    <a href="/remove/<%= details._id %>" class="remove">
-                        <span class="fas fa-times">remove</span>
-                    </a>
-                    </div>
-                </li>
-                {{/each}}
-            </ul>
+    {{#each positions}}
+    <li class="todo-list-item">
+        <div class="todo-list-item-name">{{position_name}}
+            <a href="/editPos/{{_id }}" class="edit">
+                <span class="fas fa-edit">Edit</span>
+            </a>
+            <a href="/removePos/{{details._id }}" class="remove">
+                <span class="fas fa-times">Remove</span>
+            </a>
+        </div>
+    </li>
+    {{/each}}
+</ul>
+<h3>
+    <a href="/addPos" class="add">
+        <span class="fas fa-times">Add new position</span>
+    </a>
+</h3>
