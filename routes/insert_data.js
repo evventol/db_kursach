@@ -65,8 +65,30 @@ insert_data.get('/insert', (req, res) => {
 
 
 
-insert_data.post('/addemployee', (req, res)=>{
+insert_data.post('/addemployee', async (req, res)=>{
+    const newEmployee= new Employee({
+        _id: new mongoose.Types.ObjectId(),
+        fio: req.body.fio,
+        id_card: req.body.id_card,
+        address: req.body.address,
+        position: req.body.position_id,
+        birthDay: req.body.birthDay,
+        salary_per_hour: req.body.salary_per_hour
+    });
 
+    await newEmployee.save();
+    res.redirect('/');
+});
+
+
+insert_data.post('/addnewposition',  async (req, res)=>{
+    const newposition = new Position({
+        _id: new mongoose.Types.ObjectId(),
+        position_name: req.body.position_name
+    });
+
+    await newposition.save();
+    res.redirect('/');
 });
 
 module.exports = insert_data;
