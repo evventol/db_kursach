@@ -1,0 +1,14 @@
+<h2>q</h2>
+<ul class="todo-list">
+               {{#each emps}} 
+                <li class="todo-list-item">
+                    <div class="todo-list-item-name">{{position_name}} </div>
+                    <a href="/edit/<%= details._id %>" class="edit">
+                        <span class="fas fa-edit">edit</span>
+                    </a>
+                    <a href="/remove/<%= details._id %>" class="remove">
+                        <span class="fas fa-times">remove</span>
+                    </a>
+                </li>
+                {{/each}}
+            </ul><h2>q</h2>
