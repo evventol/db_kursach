@@ -67,7 +67,7 @@ function extractedEmployee(sort, res) {
             hernia.push(employ);
 
 
-            // emps.push(doc);
+            emps.push(doc);
         }
 
     });
@@ -82,7 +82,7 @@ function extractedEmployee(sort, res) {
 
         res.render('workers', {
             title: 'Workers',
-            emps: hernia
+            emps: emps
         });
     });
 
