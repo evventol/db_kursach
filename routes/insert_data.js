@@ -77,7 +77,7 @@ insert_data.post('/addemployee', async (req, res)=>{
     });
 
     await newEmployee.save();
-    res.redirect('/');
+    res.redirect('/workers');
 });
 
 
@@ -88,7 +88,7 @@ insert_data.post('/addnewposition',  async (req, res)=>{
     });
 
     await newposition.save();
-    res.redirect('/');
+    res.redirect('/positions');
 });
 
 module.exports = insert_data;
