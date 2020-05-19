@@ -23,7 +23,7 @@ find_router.get('/positions', async (req, res) => {
 });
 
 find_router.get('/workers', (req, res) => {
-    console.log('get workers');
+    console.log('get /workers');
     let sort = {fio:1};
     extracted(sort, res);
 
@@ -52,52 +52,33 @@ function extracted(sort, res) {
             emps: emps
         });
     });
-    console.log(emps);
+
 }
 
 find_router.post('/workers', (req, res) => {
+    console.log('post /workers');
+
     let sort = {fio:1};
 
 
     let tmp = req.body.sort;
-    console.log('tmp = ', tmp);
-
-    if(tmp==="1"){
-        console.log('case 1');
-        sort = {fio: 1};
-        extracted(sort, res);
-    }
-    if(tmp === "2"){
-        console.log('case 2');
-        sort = {fio: -1};
-        extracted(sort, res);
-    }
-    if(tmp === "3"){
-        console.log('case 3');
-        sort = {fio: 1};  //TODO position
-        extracted(sort, res);
-    }
-
-   /* switch (tmp) {
-        case 1:
-            console.log('case 1');
+    switch (tmp) {
+        case "1":
             sort = {fio: 1};
             extracted(sort, res);
             break;
 
-        case 2:
-            console.log('case 2');
+        case "2":
             sort = {fio: -1};
             extracted(sort, res);
             break;
 
-        case 3:
-            console.log('case 3');
+        case "3":
             sort = {fio: 1};  //TODO position
             extracted(sort, res);
             break;
 
-    }*/
+    }
 
 
 });
