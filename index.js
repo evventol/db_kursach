@@ -48,15 +48,29 @@ var Client = require('ftp');
   var fs = require('fs');
 
   var c = new Client();
+  var c2 = new Client();
   c.on('ready', function() {
     c.get('/rfidtest.zzz.com.ua/Registrate.txt', function(err, stream) {
       if (err) throw err;
       console.log("ftp runs")
       stream.once('close', function() { c.end(); });
-      stream.pipe(fs.createWriteStream('tabel.txt'));
+      stream.pipe(fs.createWriteStream('tabel_in.txt'));
     });
   });
   c.connect({
+      host:"zzz.com.ua",
+      user: "kurgan-anastasiia",
+      password:"123456789Nn"
+  });
+  c2.on('ready', function() {
+    c2.get('/rfidtest.zzz.com.ua/Registrate2.txt', function(err, stream) {
+      if (err) throw err;
+      console.log("ftp runs")
+      stream.once('close', function() { c2.end(); });
+      stream.pipe(fs.createWriteStream('tabel_out.txt'));
+    });
+  });
+  c2.connect({
       host:"zzz.com.ua",
       user: "kurgan-anastasiia",
       password:"123456789Nn"
