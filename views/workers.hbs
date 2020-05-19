@@ -26,25 +26,27 @@
             </div>
         </div>
         {{#if emps.length}}
-        <ul class="workers-list">
-                 {{#each emps}}
-                <li class="todo-list-item">
-                    <div class="todo-list-item-name">{{ fio }}</div>
-                    <div class="todo-list-item-name">{{ birthDay }}</div>
-                    <div class="todo-list-item-name">{{ id_card }}</div>
-                    <div class="todo-list-item-name">{{ address }}</div>
-                    <div class="todo-list-item-name">{{ position}}></div>
-                    <div class="todo-list-item-name">{{ salary_per_hour }}</div>
-                    <a href="/edit/<%= emps._id %>" class="edit">
-                        <span class="fas fa-edit"></span>
-                    </a>
-                    <a href="/remove/<%= emps._id %>" class="remove">
-                        <span class="fas fa-times"></span>
-                    </a>
-                </li>
-                {{/each}}
-            </ul>
-            {{/if}}
+            <table border="1">
+                <tr>
+                    <td>FIO</td>
+                    <td>Birthday</td>
+                    <td>Id card</td>
+                    <td>Address</td>
+                    <td>Position</td>
+                    <td>Salary</td>
+                    </tr>
+          {{#each emps}}      
+   <tr>
+    <th>{{ fio }}</th>
+    <th>{{ birthDay }}</th>
+    <th>{{ id_card }}</th>
+    <th>{{ address }}</th>
+    <th>{{ position}}</th>
+    <th>{{ salary_per_hour }}</th>
+   </tr>
+   {{/each}}
+ </table>
+ {{/if}}
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
