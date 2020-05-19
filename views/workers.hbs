@@ -1,51 +1,72 @@
-
-    
-    <div class="container-md mcont pad text-center">
-        <div class="row  text-center align-items-center">
-            <div class="col-6">
-                <p>Choose count of workers that appear on page</p>
-            </div>
-            <div class="col-2">
-                <form>
-                    <input type="number" step="5" min="5" max="25">
-                    <button type="submit">ok</button>
-                </form>
-            </div>      
+<div class="container-md mcont pad text-center">
+    <div class="row  text-center align-items-center">
+        <div class="col-6">
+            <p>Choose count of workers that appear on page</p>
         </div>
-        <div class="row">
-            <div class="col-2">
-                <p>Watch:</p>
-            </div>
-            <div class="col-6">
-                <form action="/workers" method="post">
-                    <input type="radio" name="sort" value="1"> sort by A-Z
-                    <input type="radio" name="sort" value="2"> sort by Z-A
-                    <input type="radio" name="sort" value="3"> sort by position
-                    <button type="submit">ok</button>
-                </form>
-            </div>
+        <div class="col-2">
+            <form>
+                <input type="number" step="5" min="5" max="25">
+                <button type="submit">ok</button>
+            </form>
         </div>
-        {{#if emps.length}}
-        <ul class="workers-list">
-                 {{#each emps}}
-                <li class="todo-list-item">
-                    <div class="todo-list-item-name">{{ fio }}</div>
-                    <div class="todo-list-item-name">{{ birthDay }}</div>
-                    <div class="todo-list-item-name">{{ id_card }}</div>
-                    <div class="todo-list-item-name">{{ address }}</div>
-                    <div class="todo-list-item-name">{{ position}}></div>
-                    <div class="todo-list-item-name">{{ salary_per_hour }}</div>
-                    <a href="/edit/<%= emps._id %>" class="edit">
-                        <span class="fas fa-edit"></span>
-                    </a>
-                    <a href="/remove/<%= emps._id %>" class="remove">
-                        <span class="fas fa-times"></span>
-                    </a>
-                </li>
-                {{/each}}
-            </ul>
-            {{/if}}
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <div class="row">
+        <div class="col-2">
+            <p>Watch:</p>
+        </div>
+        <div class="col-6">
+            <form action="/workers" method="post">
+                <input type="radio" name="sort" value="1"> sort by A-Z
+                <input type="radio" name="sort" value="2"> sort by Z-A
+                <input type="radio" name="sort" value="3"> sort by position
+                <button type="submit">ok</button>
+            </form>
+        </div>
+    </div>
+    {{#if emps.length}}
+    <table border="1">
+        <tr>
+            <td>FIO</td>
+            <td>Birthday</td>
+            <td>Id card</td>
+            <td>Address</td>
+            <td>Position</td>
+            <td>Salary</td>
+            <td>Edit</td>
+            <td>Remove</td>
+        </tr>
+        {{#each emps}}
+        <tr>
+            <th>{{ fio }}</th>
+            <th>{{ birthDay }}</th>
+            <th>{{ id_card }}</th>
+            <th>{{ address }}</th>
+            <th>{{ position}}</th>
+            <th>{{ salary_per_hour }}</th>
+            <th><a href="/editEmp/{{_id}}" class="remove">
+                    <span class="fas fa-times">Edit</span>
+                </a></th>
+            <th>
+                <a href="/removeEmp/{{_id}}" class="remove">
+                    <span class="fas fa-times">Remove</span>
+                </a>
+            </th>
+        </tr>
+        {{/each}}
+    </table>
+    <h3>
+        <a href="/addEmp" class="add">
+            <span class="fas fa-times">Add new employee</span>
+        </a>
+    </h3>
+    {{/if}}
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
