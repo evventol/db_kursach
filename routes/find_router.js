@@ -62,17 +62,17 @@ find_router.post('/workers', (req, res) => {
     let tmp = req.body.sort;
     console.log('tmp = ', tmp);
 
-    if(tmp===1){
+    if(tmp==="1"){
         console.log('case 1');
         sort = {fio: 1};
         extracted(sort, res);
     }
-    if(tmp === 2){
+    if(tmp === "2"){
         console.log('case 2');
         sort = {fio: -1};
         extracted(sort, res);
     }
-    if(tmp === 3){
+    if(tmp === "3"){
         console.log('case 3');
         sort = {fio: 1};  //TODO position
         extracted(sort, res);
