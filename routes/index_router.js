@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const index_router = Router();
 const mongoose = require('mongoose');
-// const Employee = require('../models/Employee');
+const Employee = require('../models/Employee');
 const Position = require('../models/Position');
 
 index_router.get('/', async (req, res) => {
@@ -9,7 +9,19 @@ index_router.get('/', async (req, res) => {
         title: 'Index'
     })
 });
+index_router.get('/removeEmp/:id', async (req, res) => {
+    const id = req.params._id;
+    Employee.findByIdAndRemove(id, err => {
+        if (err) return res.send(500, err);
+        res.redirect("/workers");
+    });
+});
 
+index_router.get('/editEmp:id', async (req, res) => {
+    res.render('editEmp', {
+        title: 'Edit Employee'
+    })
+});
 index_router.get('/addEmp', async (req, res) => {
     const sort = {position_name: 1};
     const positions = [];
@@ -40,8 +52,30 @@ index_router.get('/addPos', async (req, res) => {
         title: 'Add Position'
     })
 });
+index_router.get('/editPos/:id', async (req, res) => {
+    const id = req.params.id;
+    res.render('editPos', {
+        title: 'Edit Position',
+        idPos:id
+    })
+});
+index_router.post('/editposition/:id', async (req, res) => {
+    const id = req.params.id;
+    Position.findByIdAndUpdate(id, {
+        position_name:req.body.position_name
+    }, err => {
+        if (err) return res.send(500, err);
+        res.redirect("/positions");
+    })
 
-
+});
+index_router.get('/removePos/:id', async (req, res) => {
+    const id = req.params.id;
+    Position.findByIdAndRemove(id, err => {
+        if (err) return res.send(500, err);
+        res.redirect("/positions");
+    });
+});
 
 
 

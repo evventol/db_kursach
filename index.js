@@ -52,7 +52,7 @@ var Client = require('ftp');
   c.on('ready', function() {
     c.get('/rfidtest.zzz.com.ua/Registrate.txt', function(err, stream) {
       if (err) throw err;
-      console.log("ftp runs")
+      console.log("FTP OK")
       stream.once('close', function() { c.end(); });
       stream.pipe(fs.createWriteStream('tabel_in.txt'));
     });
@@ -65,7 +65,7 @@ var Client = require('ftp');
   c2.on('ready', function() {
     c2.get('/rfidtest.zzz.com.ua/Registrate2.txt', function(err, stream) {
       if (err) throw err;
-      console.log("ftp runs")
+      console.log("FTP OK")
       stream.once('close', function() { c2.end(); });
       stream.pipe(fs.createWriteStream('tabel_out.txt'));
     });

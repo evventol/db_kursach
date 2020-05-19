@@ -1,18 +1,27 @@
 <h2>list of positions</h2>
-<ul class="todo-list">
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Remove</th>
+    </tr>
     {{#each positions}}
-    <li class="todo-list-item">
-        <div class="todo-list-item-name">{{position_name}}
-            <a href="/editPos/{{_id }}" class="edit">
+    <input type="hidden" value="{{_id}}">
+    <tr>
+        <td>{{position_name}}</td>
+        <td><a href="/editPos/{{_id }}" class="edit">
                 <span class="fas fa-edit">Edit</span>
             </a>
-            <a href="/removePos/{{details._id }}" class="remove">
+        </td>
+        <td>
+            <a href="/removePos/{{_id }}" class="remove">
                 <span class="fas fa-times">Remove</span>
             </a>
-        </div>
-    </li>
+        </td>
+    </tr>
     {{/each}}
-</ul>
+</table>
 <h3>
     <a href="/addPos" class="add">
         <span class="fas fa-times">Add new position</span>
