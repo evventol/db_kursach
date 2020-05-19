@@ -9,7 +9,21 @@ index_router.get('/', async (req, res) => {
         title: 'Index'
     })
 });
-
+index_router.get('/addEmp', async (req, res) => {
+    res.render('addEmp', {
+        title: 'Add Employee'
+    })
+});
+index_router.get('/addPos', async (req, res) => {
+    res.render('addPos', {
+        title: 'Add Position'
+    })
+});
+index_router.get('/positions', async (req, res) => {
+    res.render('positions', {
+        title: 'List of all positions'
+    })
+});
 /*index_router.get('/workers', (req, res) => {
     const emp =  Employee.find({},(err, emps) => {
         res.render('workers',{
