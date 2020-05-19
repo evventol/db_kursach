@@ -5,7 +5,14 @@ const Employee = require('../models/Employee');
 const Position = require('../models/Position');
 
 find_router.get('/workers', (req, res) => {
-    const sort = {fio: 1};
+    console.log('get workers');
+    let sort = {fio:1};
+    extracted(sort, res);
+
+});
+
+
+function extracted(sort, res) {
     const stream = Employee.find().sort(sort).stream();
     const emps = [];
     const maxLength = 20;
@@ -28,6 +35,54 @@ find_router.get('/workers', (req, res) => {
             emps: emps
         });
     });
+    console.log(emps);
+}
+
+find_router.post('/workers', (req, res) => {
+    let sort = {fio:1};
+
+
+    let tmp = req.body.sort;
+    console.log('tmp = ', tmp);
+
+    if(tmp===1){
+        console.log('case 1');
+        sort = {fio: 1};
+        extracted(sort, res);
+    }
+    if(tmp === 2){
+        console.log('case 2');
+        sort = {fio: -1};
+        extracted(sort, res);
+    }
+    if(tmp === 3){
+        console.log('case 3');
+        sort = {fio: 1};  //TODO position
+        extracted(sort, res);
+    }
+
+   /* switch (tmp) {
+        case 1:
+            console.log('case 1');
+            sort = {fio: 1};
+            extracted(sort, res);
+            break;
+
+        case 2:
+            console.log('case 2');
+            sort = {fio: -1};
+            extracted(sort, res);
+            break;
+
+        case 3:
+            console.log('case 3');
+            sort = {fio: 1};  //TODO position
+            extracted(sort, res);
+            break;
+
+    }*/
+
+
 });
 
 
