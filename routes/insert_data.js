@@ -64,16 +64,59 @@ insert_data.get('/insert', (req, res) => {
     });
 });
 
+var index_out= 0;
 
-function findLineWithId(line, idWorker) {
-    for (let it in line) {
-        if(line[it]){
-            console.log(line[it])
-        }
-    }
+function extractFullDataFromLine(str) {
+    let regexpDetail = '((\\d+).(\\d+).(\\d+)(\\s)+(\\d+):(\\d+):(\\d+))';
+    let result = str.match(regexpDetail);
+
+  /*  console.log(result[1]); //19.05.2020 21:06:28
+    console.log(result[2]); //19
+    console.log(result[3]); //05
+    console.log(result[4]); //2020
+    console.log(result[5]); //
+    console.log(result[6]); //21
+    console.log(result[7]); //06
+    console.log(result[8]); //28
+*/
+
+    const date = new Date();
+    date.setFullYear(result[4], result[3] - 1, result[2]);
+    date.setHours(result[6], result[7], result[8]);
+    // console.log(date);
+
+    return date;
 }
 
-var index_out= 0;
+function writeTimeToTabel(inn, out, idWorker) {
+  /*  const regexp_full = "((\\d+.\\d+.\\d+)\\s+(\\d+:\\d+:\\d+))";
+    let result_full = str.match(regexp_full);
+    console.log(result_full[1]);  //19.05.2020 21:06:28
+    console.log(result_full[2]);  //19.05.2020
+    console.log(result_full[3]);  //21:06:28
+*/
+    //////////////////////////////////////////////
+
+    const date_enter = extractFullDataFromLine(inn);
+    const date_exit = extractFullDataFromLine(out);
+
+    console.log('in -> ', date_enter);
+    console.log('out -> ', date_exit);
+
+    var tabel = new Tabel({
+        _id: new mongoose.Types.ObjectId(),
+        employee: new mongoose.Types.ObjectId(idWorker),  //TODO
+        entry_time: date_enter,
+        exit_time: date_exit,
+    });
+
+    /*tabel.save(function(err) {
+        if (err) throw err;
+        console.log('Tabel successfully saved.');
+    });*/
+
+}
+
 function readTabelFile(idWorker) {
     const array = fs.readFileSync('tabel_in.txt').toString().split("\n");
 
@@ -84,7 +127,7 @@ function readTabelFile(idWorker) {
             let out = readTabelOutFile(idWorker);
             console.log('in ',inn);
             console.log('out ',out);
-
+            writeTimeToTabel(inn, out, idWorker);
         }
 
 

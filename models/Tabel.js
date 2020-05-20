@@ -11,9 +11,6 @@ const schema = mongoose.Schema({
         },
         exit_time: {
             type: Date
-        },
-        standart_working_month_hours: {
-            type: Number
         }
     });
 
