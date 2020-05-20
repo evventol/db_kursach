@@ -42,36 +42,34 @@ async function start() {
     }
 }
 
+function getTabelFromFTP(address, filename) {
+    const Client = require('ftp');
+    const fs = require('fs');
+
+    const c = new Client();
+    c.on('ready', function () {
+        c.get(address, function (err, stream) {
+            if (err) throw err;
+            console.log("FTP OK");
+            stream.once('close', function () {
+                c.end();
+            });
+            stream.pipe(fs.createWriteStream(filename));
+        });
+    });
+    c.connect({
+        host: "zzz.com.ua",
+        user: "kurgan-anastasiia",
+        password: "123456789Nn"
+    });
+
+}
+
+
 start();
+getTabelFromFTP('/rfidtest.zzz.com.ua/Registrate.txt', 'tabel_in.txt');
+getTabelFromFTP('/rfidtest.zzz.com.ua/Registrate2.txt', 'tabel_out.txt');
 
-var Client = require('ftp');
-  var fs = require('fs');
 
-  var c = new Client();
-  var c2 = new Client();
-  c.on('ready', function() {
-    c.get('/rfidtest.zzz.com.ua/Registrate.txt', function(err, stream) {
-      if (err) throw err;
-      console.log("FTP OK")
-      stream.once('close', function() { c.end(); });
-      stream.pipe(fs.createWriteStream('tabel_in.txt'));
-    });
-  });
-  c.connect({
-      host:"zzz.com.ua",
-      user: "kurgan-anastasiia",
-      password:"123456789Nn"
-  });
-  c2.on('ready', function() {
-    c2.get('/rfidtest.zzz.com.ua/Registrate2.txt', function(err, stream) {
-      if (err) throw err;
-      console.log("FTP OK")
-      stream.once('close', function() { c2.end(); });
-      stream.pipe(fs.createWriteStream('tabel_out.txt'));
-    });
-  });
-  c2.connect({
-      host:"zzz.com.ua",
-      user: "kurgan-anastasiia",
-      password:"123456789Nn"
-  });
+
+
