@@ -10,7 +10,7 @@ find_router.get('/positions', async (req, res) => {
     const sort = {position_name: 1};
     const stream = Position.find().sort(sort).stream();
     const positions = [];
-    
+
     stream.on('data', function (doc) {
         positions.push(doc);
     });
@@ -26,58 +26,66 @@ find_router.get('/positions', async (req, res) => {
 
 find_router.get('/workers', (req, res) => {
     console.log('get /workers');
-    let sort = {fio:1};
+    let sort = {fio: 1};
     extractedEmployee(sort, res);
 
 });
 
 
-function extractedPosition(doc) {
-    const stream = Position.findById(doc.position).sort(sort).stream();
-    stream.on('data', function (doc) {
+/*    const tmp = new Promise(function (resolve, reject) {
+        Position.findById(doc.position, (error, smth) => {
+            //console.log(smth.position_name);
 
-    })
-    const tmp = Position.findById(doc.position,  (error, smth) =>{
-        //console.log(smth.position_name);
-        return smth.position_name;
+            const employ = new Employee({
+                fio: doc.fio,
+                id_card: doc.id_card,
+                address: doc.address,
+                salary_per_hour: doc.salary_per_hour,
+                position: smth.position_name,      //TODO
+                birthDay: doc.birthDay
+
+            });
+            resolve(employ);
+        })
+
+    });*/
+
+const hernia = [];
+
+const someFunction = (doc) => {
+    return new Promise((resolve, reject) => {
+        Position.findById(doc.position, (error, smth) => {
+            const employ = new Employee({
+                fio: doc.fio,
+                id_card: doc.id_card,
+                address: doc.address,
+                salary_per_hour: doc.salary_per_hour,
+                position: smth.position_name,      //TODO
+                birthDay: doc.birthDay
+
+            });
+            console.log(employ);
+
+            resolve(employ);
+        });
+
+
     });
-    
-}
+};
+
 
 function extractedEmployee(sort, res) {
     const stream = Employee.find().sort(sort).stream();
-    const stream2 = Position.find().sort(sort).stream();
     const emps = [];
-    const hernia = [];
     const maxLength = 20;
-    var sss= "horosho";
-    stream.on('data', function (doc) {
-        
-        if (emps.length < maxLength) {   //TODO
-            sss = Position.findById(doc.position);
-            console.log("sss = ", sss);
-            var pop;
-            const employ = new Employee({
-                fio:doc.fio,
-                id_card:doc.id_card,
-                address:doc.address,
-                salary_per_hour:doc.salary_per_hour,
-                position:sss,      //TODO
-                birthDay:doc.birthDay
 
-            });
+    stream.on('data', async function (doc) {
 
-
-            hernia.push(employ);
-            stream2.on('data', function (doc1) {
-                if(doc.position==doc1._id){
-                    pop=doc1.position_name;
-                }
-               
-            })
+        if (emps.length < maxLength) {
+           /* const ttt = await someFunction(doc);
+            hernia.push(ttt);
+*/
             emps.push(doc);
-            emps.push(sss);
-            //console.log(emps)
         }
 
     });
@@ -102,7 +110,7 @@ function extractedEmployee(sort, res) {
 find_router.post('/workers', (req, res) => {
     console.log('post /workers');
 
-    let sort = {fio:1};
+    let sort = {fio: 1};
 
 
     let tmp = req.body.sort;
