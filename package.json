@@ -24,7 +24,8 @@
     "fs": "0.0.1-security",
     "ftp": "^0.3.10",
     "handlebars": "^4.7.6",
-    "mongoose": "^5.9.14"
+    "mongoose": "^5.9.14",
+    "node-cron": "^2.0.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

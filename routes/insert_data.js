@@ -66,13 +66,13 @@ insert_data.get('/insert', (req, res) => {
     });
 });
 
-var index_out= 0;
+// var index_out= 0;
 
-function extractFullDataFromLine(str) {
+/*function extractFullDataFromLine(str) {
     let regexpDetail = '((\\d+).(\\d+).(\\d+)(\\s)+(\\d+):(\\d+):(\\d+))';
     let result = str.match(regexpDetail);
 
-  /*  console.log(result[1]); //19.05.2020 21:06:28
+  /!*  console.log(result[1]); //19.05.2020 21:06:28
     console.log(result[2]); //19
     console.log(result[3]); //05
     console.log(result[4]); //2020
@@ -80,22 +80,22 @@ function extractFullDataFromLine(str) {
     console.log(result[6]); //21
     console.log(result[7]); //06
     console.log(result[8]); //28
-*/
+*!/
 
     const date = new Date();
     date.setFullYear(result[4], result[3] - 1, result[2]);
     date.setHours(result[6], result[7], result[8]);
 
     return date;
-}
+}*/
 
-function writeTimeToTabel(inn, out, idWorker) {
-  /*  const regexp_full = "((\\d+.\\d+.\\d+)\\s+(\\d+:\\d+:\\d+))";
+/*function writeTimeToTabel(inn, out, idWorker) {
+  /!*  const regexp_full = "((\\d+.\\d+.\\d+)\\s+(\\d+:\\d+:\\d+))";
     let result_full = str.match(regexp_full);
     console.log(result_full[1]);  //19.05.2020 21:06:28
     console.log(result_full[2]);  //19.05.2020
     console.log(result_full[3]);  //21:06:28
-*/
+*!/
     //////////////////////////////////////////////
 
     const date_enter = extractFullDataFromLine(inn);
@@ -116,9 +116,9 @@ function writeTimeToTabel(inn, out, idWorker) {
         console.log('Tabel successfully saved.');
     });
 
-}
+}*/
 
-function readTabelFile(idCardWorker) {
+/*unction readTabelFile(idCardWorker) {
     const array = fs.readFileSync('tabel_in.txt').toString().split("\n");
 
     for (let i in array) {
@@ -136,9 +136,9 @@ function readTabelFile(idCardWorker) {
         // console.log('words ', words);
 
     }
-}
+}*/
 
-function readTabelOutFile(idWorker) {
+/*function readTabelOutFile(idWorker) {
     const array = fs.readFileSync('tabel_out.txt').toString().split("\n");
     let tmp = index_out;
 
@@ -151,7 +151,31 @@ function readTabelOutFile(idWorker) {
             return array[i];
         }
     }
-}
+}*/
+
+/*function inTimeReadTabel(){
+    const today = new Date();
+    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+    if(time==='20:25:30'){
+        console.log("check enter/exit");
+        let allEmployeesID = [];
+        const stream = Employee2.find().stream();
+        stream.on('data', async function (doc) {
+            allEmployeesID.push(doc.id_card);
+        });
+
+        stream.on('error', function (err) {
+            console.log(err);
+        });
+
+        stream.on('end', function () {
+            for (let i = 0; i < allEmployeesID.length; i++) {
+                readTabelFile(allEmployeesID[i]);
+            }
+        });
+    }
+}*/
 
 insert_data.post('/addemployee', async (req, res)=>{
 
@@ -165,7 +189,7 @@ insert_data.post('/addemployee', async (req, res)=>{
         salary_per_hour: req.body.salary_per_hour
     });
 
-    readTabelFile(req.body.id_card);
+    // readTabelFile(req.body.id_card);
 
     await newEmployee.save();
     res.redirect('/workers');
