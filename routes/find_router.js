@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const find_router = Router();
-const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
+
+const Employee2 = require('../models/EmployeeHidden');
 
 const Employee = require('../models/Employee');
 const Position = require('../models/Position');
@@ -75,7 +75,7 @@ const someFunction = (doc) => {
 
 
 function extractedEmployee(sort, res) {
-    const stream = Employee.find().sort(sort).stream();
+    const stream = Employee2.find().sort(sort).stream();
     const emps = [];
     const maxLength = 20;
 

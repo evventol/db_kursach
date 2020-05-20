@@ -14,6 +14,10 @@ const schema = mongoose.Schema({
         type: String,
         required: true
     },
+    /*position: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Position'
+    },*/
     position: {
         type: String
     },
@@ -27,5 +31,5 @@ const schema = mongoose.Schema({
     }
 });
 
-const Employee = mongoose.model('Employee', schema);
+const Employee = mongoose.model('Employee2', schema);
 module.exports = Employee;

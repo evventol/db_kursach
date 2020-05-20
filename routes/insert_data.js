@@ -3,6 +3,8 @@ const insert_data = require('express').Router();
 const fs = require('fs');
 
 const Employee = require('../models/Employee');
+const Employee2 = require('../models/EmployeeHidden');
+
 const Position = require('../models/Position');
 const Calculate = require('../models/Calculate_salary');
 const Tabel = require('../models/Tabel');
@@ -83,7 +85,6 @@ function extractFullDataFromLine(str) {
     const date = new Date();
     date.setFullYear(result[4], result[3] - 1, result[2]);
     date.setHours(result[6], result[7], result[8]);
-    // console.log(date);
 
     return date;
 }
@@ -103,31 +104,31 @@ function writeTimeToTabel(inn, out, idWorker) {
     console.log('in -> ', date_enter);
     console.log('out -> ', date_exit);
 
-    var tabel = new Tabel({
+    const tabel = new Tabel({
         _id: new mongoose.Types.ObjectId(),
-        employee: new mongoose.Types.ObjectId(idWorker),  //TODO
+        employee: idWorker,  //TODO
         entry_time: date_enter,
         exit_time: date_exit,
     });
 
-    /*tabel.save(function(err) {
+    tabel.save(function(err) {
         if (err) throw err;
         console.log('Tabel successfully saved.');
-    });*/
+    });
 
 }
 
-function readTabelFile(idWorker) {
+function readTabelFile(idCardWorker) {
     const array = fs.readFileSync('tabel_in.txt').toString().split("\n");
 
     for (let i in array) {
 
-        if(array[i].includes(idWorker)){
+        if(array[i].includes(idCardWorker)){
             let inn = array[i];
-            let out = readTabelOutFile(idWorker);
+            let out = readTabelOutFile(idCardWorker);
             console.log('in ',inn);
             console.log('out ',out);
-            writeTimeToTabel(inn, out, idWorker);
+            writeTimeToTabel(inn, out, idCardWorker);
         }
 
 
@@ -146,15 +147,15 @@ function readTabelOutFile(idWorker) {
         if(array[i].includes(idWorker)){
 
             index_out=i;
-            console.log('find out at position = ', i);
+            // console.log('find out at position = ', i);
             return array[i];
         }
     }
 }
 
 insert_data.post('/addemployee', async (req, res)=>{
-//TODO delete comment
-/*    const newEmployee= new Employee({
+
+    const newEmployee= new Employee2({
         _id: new mongoose.Types.ObjectId(),
         fio: req.body.fio,
         id_card: req.body.id_card,
@@ -162,11 +163,11 @@ insert_data.post('/addemployee', async (req, res)=>{
         position: req.body.position_id,
         birthDay: req.body.birthDay,
         salary_per_hour: req.body.salary_per_hour
-    });*/
+    });
 
     readTabelFile(req.body.id_card);
 
- //TODO   // await newEmployee.save();
+    await newEmployee.save();
     res.redirect('/workers');
 });
 
