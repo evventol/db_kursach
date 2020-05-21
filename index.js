@@ -35,8 +35,10 @@ app.use(index_router);
 
 
 
-/* //TODO cron.schedule("* * * * *", function() {
-    console.log("running a task every minute");
+/* //TODO cron.schedule("0 0 0 * * *", function() {
+    console.log("running a task every day at 12:00 AM");
+    getTabelFromFTP('/rfidtest.zzz.com.ua/Registrate.txt', 'tabel_in.txt');
+    getTabelFromFTP('/rfidtest.zzz.com.ua/Registrate2.txt', 'tabel_out.txt');
     inTimeReadTabel();
 });*/
 
@@ -168,8 +170,7 @@ function getTabelFromFTP(address, filename) {
 
 
 start();
-getTabelFromFTP('/rfidtest.zzz.com.ua/Registrate.txt', 'tabel_in.txt');
-getTabelFromFTP('/rfidtest.zzz.com.ua/Registrate2.txt', 'tabel_out.txt');
+
 
 
 
